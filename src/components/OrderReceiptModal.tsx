@@ -56,7 +56,9 @@ export const OrderReceiptModal: React.FC<OrderReceiptModalProps> = ({
               </div>
               <p className="text-xs text-slate-500">{settings.tagline}</p>
               <p className="text-[11px] text-slate-400 mt-1">{settings.address}</p>
-              <p className="text-[11px] text-slate-400">Phone: {settings.phone} · {settings.email}</p>
+              <p className="text-[11px] text-slate-400">
+                Phone: {settings.phone} / {settings.phone2 || '03145357249'} · {settings.email}
+              </p>
             </div>
 
             <div className="text-right">
@@ -85,7 +87,7 @@ export const OrderReceiptModal: React.FC<OrderReceiptModalProps> = ({
 
             <div>
               <span className="font-bold text-slate-700 block mb-1">Dispatch & Production:</span>
-              <p className="text-slate-700"><strong>Workshop:</strong> I-9/2 Industrial Unit</p>
+              <p className="text-slate-700"><strong>Workshop & Store:</strong> Sadiqabad Rawalpindi Unit</p>
               <p className="text-slate-700"><strong>Carrier:</strong> TCS / Leopard Express</p>
               <p className="text-slate-700"><strong>Total Garments:</strong> {totalQuantity} pieces</p>
               {order.notes && (

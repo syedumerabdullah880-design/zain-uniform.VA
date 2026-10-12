@@ -26,7 +26,7 @@ import { Product, Order, UniformCategory } from './types';
 import { ArrowRight, Scissors, Building2, MessageCircle, Sparkles, CheckCircle2 } from 'lucide-react';
 
 const MainContent: React.FC = () => {
-  const { products, addToCart, language, getWhatsAppLink } = useStore();
+  const { products, addToCart, language, getWhatsAppLink, settings } = useStore();
 
   // Navigation State
   const [activeView, setActiveView] = useState<'home' | 'shop' | 'custom' | 'wholesale' | 'track' | 'about'>('home');
@@ -248,17 +248,26 @@ const MainContent: React.FC = () => {
                   Need Help Choosing Your Child's School Uniform?
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
-                  Our Islamabad tailoring team is available on WhatsApp to guide you on sizing, school fabric requirements, and order status.
+                  Our Rawalpindi tailoring team is available on WhatsApp and phone to guide you on sizing, school fabric requirements, and order status.
                 </p>
                 <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
                   <a
-                    href={getWhatsAppLink('Assalam-o-Alaikum Zain Uniforms! I need help with school uniform sizing.')}
+                    href={getWhatsAppLink('Assalam-o-Alaikum Zain Uniforms! I need help with school uniform sizing.', settings.whatsappNumber)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-7 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-2 shadow-sm"
+                    className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-2 shadow-sm font-mono"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>Chat on WhatsApp Directly</span>
+                    <span>WhatsApp: {settings.phone}</span>
+                  </a>
+                  <a
+                    href={getWhatsAppLink('Assalam-o-Alaikum Zain Uniforms! I need help with school uniform sizing.', settings.whatsappNumber2 || '923145357249')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-2 shadow-sm font-mono"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>WhatsApp: {settings.phone2 || '03145357249'}</span>
                   </a>
                   <button
                     onClick={() => {

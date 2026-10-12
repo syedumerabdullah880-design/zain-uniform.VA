@@ -77,7 +77,7 @@ interface StoreContextType {
   deleteFaq: (id: string) => void;
   addTestimonial: (t: Omit<Testimonial, 'id' | 'date'>) => void;
   // WhatsApp helper
-  getWhatsAppLink: (text: string) => string;
+  getWhatsAppLink: (text: string, customPhone?: string) => string;
 }
 
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
@@ -88,10 +88,10 @@ const STORAGE_KEYS = {
   ORDERS: 'zain_uniforms_orders_v2',
   CUSTOM_QUOTES: 'zain_uniforms_custom_quotes_v2',
   WHOLESALE: 'zain_uniforms_wholesale_v2',
-  SETTINGS: 'zain_uniforms_settings_v2',
+  SETTINGS: 'zain_uniforms_settings_v3',
   FAQS: 'zain_uniforms_faqs_v2',
   TESTIMONIALS: 'zain_uniforms_testimonials_v2',
-  POLICIES: 'zain_uniforms_policies_v2',
+  POLICIES: 'zain_uniforms_policies_v3',
   LANG: 'zain_uniforms_lang_v2',
 };
 
@@ -132,7 +132,7 @@ const INITIAL_DEMO_ORDERS: Order[] = [
     trackingHistory: [
       { status: 'Pending', timestamp: '2026-10-09 14:30', note: 'Order booking submitted by customer' },
       { status: 'Confirmed', timestamp: '2026-10-09 16:15', note: 'Order details and sizing verified with customer' },
-      { status: 'In Production', timestamp: '2026-10-10 09:30', note: 'Pattern cut and sent to sewing line in I-9 workshop' },
+      { status: 'In Production', timestamp: '2026-10-10 09:30', note: 'Pattern cut and sent to sewing line in Rawalpindi workshop' },
     ]
   },
   {
@@ -261,7 +261,23 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Settings
   const [settings, setSettings] = useState<SiteSettings>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.SETTINGS);
-    return saved ? JSON.parse(saved) : INITIAL_SETTINGS;
+    if (!saved) return INITIAL_SETTINGS;
+    try {
+      const parsed = JSON.parse(saved);
+      // If legacy settings contain old phone or old address, reset to INITIAL_SETTINGS
+      if (
+        !parsed.address ||
+        parsed.address.includes('Plot 44-B') ||
+        parsed.address.includes('I-9') ||
+        parsed.phone?.includes('8594210') ||
+        !parsed.phone2
+      ) {
+        return INITIAL_SETTINGS;
+      }
+      return { ...INITIAL_SETTINGS, ...parsed };
+    } catch {
+      return INITIAL_SETTINGS;
+    }
   });
 
   // FAQs
@@ -279,7 +295,20 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Policies
   const [policies, setPolicies] = useState<Policies>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.POLICIES);
-    return saved ? JSON.parse(saved) : INITIAL_POLICIES;
+    if (!saved) return INITIAL_POLICIES;
+    try {
+      const parsed = JSON.parse(saved);
+      if (
+        JSON.stringify(parsed).includes('8594210') ||
+        JSON.stringify(parsed).includes('Plot 44-B') ||
+        JSON.stringify(parsed).includes('I-9 Industrial Area')
+      ) {
+        return INITIAL_POLICIES;
+      }
+      return { ...INITIAL_POLICIES, ...parsed };
+    } catch {
+      return INITIAL_POLICIES;
+    }
   });
 
   // Language & RTL
@@ -617,8 +646,9 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setTestimonials(prev => [newT, ...prev]);
   };
 
-  const getWhatsAppLink = (text: string): string => {
-    const cleanNumber = settings.whatsappNumber.replace(/\D/g, '');
+  const getWhatsAppLink = (text: string, customPhone?: string): string => {
+    const rawNumber = customPhone || settings.whatsappNumber || '923185283067';
+    const cleanNumber = rawNumber.replace(/\D/g, '');
     const encoded = encodeURIComponent(text);
     return `https://wa.me/${cleanNumber}?text=${encoded}`;
   };

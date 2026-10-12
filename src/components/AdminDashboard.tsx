@@ -61,6 +61,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   React.useEffect(() => {
     if (isOpen) {
+      setSettingsForm(settings);
       fetch('/api/institutional-applications')
         .then(r => r.json())
         .then(d => {
@@ -733,28 +734,54 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-[11px] font-semibold text-slate-700 mb-1">
-                      Customer Service Phone
+                      Customer Service Phone 1 (03185283067)
                     </label>
                     <input
                       type="text"
                       value={settingsForm.phone}
                       onChange={e => setSettingsForm({ ...settingsForm, phone: e.target.value })}
-                      className="w-full px-3 py-2 border border-slate-300 rounded-lg"
+                      className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono"
                     />
                   </div>
 
                   <div>
                     <label className="block text-[11px] font-semibold text-slate-700 mb-1">
-                      WhatsApp Number (for wa.me links)
+                      Customer Service Phone 2 (03145357249)
+                    </label>
+                    <input
+                      type="text"
+                      value={settingsForm.phone2 || ''}
+                      onChange={e => setSettingsForm({ ...settingsForm, phone2: e.target.value })}
+                      className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                      WhatsApp 1 (clean digits, e.g. 923185283067)
                     </label>
                     <input
                       type="text"
                       value={settingsForm.whatsappNumber}
                       onChange={e => setSettingsForm({ ...settingsForm, whatsappNumber: e.target.value })}
-                      className="w-full px-3 py-2 border border-slate-300 rounded-lg"
+                      className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                      WhatsApp 2 (clean digits, e.g. 923145357249)
+                    </label>
+                    <input
+                      type="text"
+                      value={settingsForm.whatsappNumber2 || ''}
+                      onChange={e => setSettingsForm({ ...settingsForm, whatsappNumber2: e.target.value })}
+                      className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono"
                     />
                   </div>
                 </div>

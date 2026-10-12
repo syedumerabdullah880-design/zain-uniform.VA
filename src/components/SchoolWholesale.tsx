@@ -28,7 +28,7 @@ export const SchoolWholesale: React.FC = () => {
   const [phone, setPhone] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [email, setEmail] = useState('');
-  const [city, setCity] = useState('Islamabad');
+  const [city, setCity] = useState('Rawalpindi');
   const [uniformType, setUniformType] = useState('Complete School Uniform (Shirts, Trousers & Blazers)');
   const [estimatedQuantity, setEstimatedQuantity] = useState<number | string>(250);
   const [boysCount, setBoysCount] = useState<number | string>(150);
@@ -47,7 +47,7 @@ export const SchoolWholesale: React.FC = () => {
     setPhone('');
     setWhatsapp('');
     setEmail('');
-    setCity('Islamabad');
+    setCity('Rawalpindi');
     setUniformType('Complete School Uniform (Shirts, Trousers & Blazers)');
     setEstimatedQuantity(250);
     setBoysCount(150);

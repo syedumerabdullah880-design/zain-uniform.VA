@@ -4,13 +4,15 @@ export const INITIAL_SETTINGS: SiteSettings = {
   businessName: 'Zain Uniforms',
   tagline: 'Your School Uniform, Made to Fit.',
   taglineUrdu: 'آپ کی اسکول یونیفارم، بہترین سلائی اور سائز کے ساتھ',
-  phone: '+92 300 8594210',
-  whatsappNumber: '923008594210', // clean for wa.me/923008594210
+  phone: '03185283067',
+  phone2: '03145357249',
+  whatsappNumber: '923185283067', // clean for wa.me/923185283067
+  whatsappNumber2: '923145357249', // clean for wa.me/923145357249
   email: 'orders@zainuniforms.pk',
-  address: 'Plot 44-B, Sector I-9/2 Industrial Area, Islamabad, Pakistan',
+  address: 'koyla center, Shop#2867 Nishter St, Sadiqabad Rawalpindi, 46000',
   cityDeliveryTimes: {
-    'Islamabad': '1-2 Days (Express)',
     'Rawalpindi': '1-2 Days (Express)',
+    'Islamabad': '1-2 Days (Express)',
     'Lahore': '2-3 Days',
     'Karachi': '3-4 Days',
     'Peshawar': '2-3 Days',
@@ -339,12 +341,12 @@ export const INITIAL_POLICIES: Policies = {
 
 • Standard Sizes: Unworn, unwashed uniforms with original tags and packaging can be exchanged within 7 days of delivery.
 • Custom Stitched Uniforms: Because each piece is handcrafted to unique individual measurements, our workshop provides complimentary fit adjustments if there is any manufacturing discrepancy.
-• Damaged / Defective Items: If any item arrives damaged or defective, notify us on WhatsApp (+92 300 8594210) within 48 hours for immediate replacement with all courier transit covered by Zain Uniforms.`,
+• Damaged / Defective Items: If any item arrives damaged or defective, notify us on WhatsApp (03185283067 / 03145357249) within 48 hours for immediate replacement with all courier transit covered by Zain Uniforms.`,
 
   exchangePolicy: `Size exchanges are straightforward:
-1. Message our WhatsApp support with your Order Number and desired new size.
+1. Message our WhatsApp support (03185283067 / 03145357249) with your Order Number and desired new size.
 2. Repack the unworn uniform securely.
-3. Our courier will arrange pickup or you can dispatch it to our Islamabad factory.
+3. Our courier will arrange pickup or you can dispatch it directly to our store (koyla center, Shop#2867 Nishter St, Sadiqabad Rawalpindi, 46000).
 4. The replacement size is dispatched promptly upon receiving the returned item.`,
 
   customOrderPolicy: `Every custom uniform is drafted by master tailors with over two decades of school uniform expertise:
@@ -352,7 +354,7 @@ export const INITIAL_POLICIES: Policies = {
 • Ease Allowance: Our master tailors automatically build 1 to 1.5 inches of comfortable ease into school garments to accommodate active movement and child growth throughout the school year.
 • School Design Reproduction: Upload your school's collar style, pocket crest photo, or badge. We will replicate the shade and cut to match official uniform regulations.`,
 
-  wholesalePolicy: `Zain Uniforms operates a high-capacity industrial garment manufacturing facility in I-9 Industrial Area, Islamabad.
+  wholesalePolicy: `Zain Uniforms operates a high-capacity uniform manufacturing and retail center at koyla center, Shop#2867 Nishter St, Sadiqabad Rawalpindi, 46000.
 • Minimum Order Quantity (MOQ): Institutional batch orders start at 25-30 units per SKU.
 • Custom Dyeing & Weaving: We source lab-tested uniform twills, tropical poly-viscose, and combed cottons. Custom school tie weaving available for batches of 50+.
 • Samples: Physical pre-production samples are supplied for school board review before full volume cutting.

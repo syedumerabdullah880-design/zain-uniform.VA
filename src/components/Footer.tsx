@@ -39,15 +39,24 @@ export const Footer: React.FC<FooterProps> = ({
               School uniforms made for quality, comfort, and the perfect fit. Serving Pakistani families, educational institutions, and wholesale retailers with dedicated craftsmanship.
             </p>
 
-            <div className="pt-2">
+            <div className="pt-2 flex flex-col gap-1.5">
               <a
-                href={getWhatsAppLink('Hello Zain Uniforms! I have a question.')}
+                href={getWhatsAppLink('Hello Zain Uniforms! I have a question.', settings.whatsappNumber)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-700/60 rounded-lg text-emerald-400 font-semibold text-[11px] transition-colors"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>WhatsApp: {settings.phone}</span>
+              </a>
+              <a
+                href={getWhatsAppLink('Hello Zain Uniforms! I have a question.', settings.whatsappNumber2 || '923145357249')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-700/60 rounded-lg text-emerald-400 font-semibold text-[11px] transition-colors"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+                <span>WhatsApp 2: {settings.phone2 || '03145357249'}</span>
               </a>
             </div>
           </div>
@@ -181,16 +190,24 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Col 5: Contact Info */}
           <div className="space-y-3">
             <h4 className="text-white font-bold tracking-wider uppercase text-[11px]">
-              Contact Workshop
+              Contact Store & Workshop
             </h4>
             <ul className="space-y-2.5 text-slate-400 text-xs">
               <li className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-[#C5A869] shrink-0 mt-0.5" />
-                <span>{settings.address}</span>
+                <span className="leading-relaxed">{settings.address}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-[#C5A869] shrink-0" />
-                <span>{settings.phone}</span>
+                <a href={`tel:${settings.phone}`} className="hover:text-white transition-colors">
+                  Phone 1: {settings.phone}
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone className="w-3.5 h-3.5 text-[#C5A869] shrink-0" />
+                <a href={`tel:${settings.phone2 || '03145357249'}`} className="hover:text-white transition-colors">
+                  Phone 2: {settings.phone2 || '03145357249'}
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-[#C5A869] shrink-0" />
@@ -212,7 +229,7 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Bottom Copyright */}
         <div className="mt-12 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-500 text-[11px]">
           <div>
-            © {new Date().getFullYear()} Zain Uniforms. All Rights Reserved. Tailored in Islamabad, Pakistan.
+            © {new Date().getFullYear()} Zain Uniforms. All Rights Reserved. Sadiqabad, Rawalpindi, Pakistan.
           </div>
           <div className="flex items-center gap-4">
             <button onClick={() => onOpenPolicies('privacy')} className="hover:text-slate-300">

@@ -144,7 +144,9 @@ export interface SiteSettings {
   tagline: string;
   taglineUrdu: string;
   phone: string;
-  whatsappNumber: string; // plain digits with country code, e.g. 923008594210
+  phone2?: string;
+  whatsappNumber: string; // plain digits with country code, e.g. 923185283067
+  whatsappNumber2?: string; // plain digits with country code, e.g. 923145357249
   email: string;
   address: string;
   cityDeliveryTimes: Record<string, string>;

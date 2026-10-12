@@ -95,7 +95,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({ onSelectCategory }) 
           </div>
 
           <div className="text-xs text-slate-500 font-medium">
-            <span>Stitched in Islamabad</span>
+            <span>Crafted in Rawalpindi</span>
             <span aria-hidden="true" className="mx-2">/</span>
             <span>Shipped Nationwide</span>
           </div>

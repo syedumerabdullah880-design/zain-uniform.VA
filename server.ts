@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const PORT = Number(process.env.PORT) || 3000;
-const DEFAULT_SHEETDB_URL = 'https://sheetdb.io/api/v1/x7o97eplhy0pt';
+const DEFAULT_SHEETDB_URL = 'https://sheetdb.io/api/v1/pvwapuh88f4iq';
 const SHEETDB_URL = process.env.SHEETDB_API_URL || DEFAULT_SHEETDB_URL;
 const DEFAULT_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby0-womBk0G0q0XtKA8zgA8Sf_DN9nopvM0bhrcSUXaB2ZX4gLffZH7bwzNnl66yMsq/exec';
 const APPS_SCRIPT_URL = process.env.GOOGLE_SHEET_APPS_SCRIPT_URL || DEFAULT_APPS_SCRIPT_URL;
@@ -250,45 +250,94 @@ async function startServer() {
       // --- PRIMARY PIPELINE: SheetDB API Direct Sync ---
       if (SHEETDB_URL && SHEETDB_URL.trim() !== '') {
         try {
-          // The payload keys matching the Google Sheet columns connected via SheetDB
-          const sheetDbPayload = {
-            data: [
-              {
-                // Exact keys matching the spreadsheet columns:
-                name: contactDisplay,
-                'Email ': email || '',
-                Email: email || '',
-                'phone number': effectivePhone,
-                product: effectiveUniformType,
-                'amount ': String(effectiveQuantity),
-                amount: String(effectiveQuantity),
-                'delivery date': effectiveDeadline,
+          const contactPersonAndDesignation = personName
+            ? (personDesignation ? `${personName} (${personDesignation})` : personName)
+            : effectiveContact;
 
-                // Comprehensive columns for complete institutional tracking:
-                'Application ID': applicationId,
-                'Submission Date': submissionDate,
-                'School / Business Name': effectiveSchool,
-                'Contact Person Name': personName || effectiveContact,
-                Designation: personDesignation,
-                'City / Campus Location': effectiveCity,
-                'Official Phone': effectivePhone,
-                'WhatsApp Number': whatsapp || effectivePhone,
-                'Official Email': email || '',
-                'Uniform Type / Items Needed': effectiveUniformType,
-                'Total Estimated Quantity': effectiveQuantity,
-                'Boys Uniforms': boysCount !== undefined ? parseInt(String(boysCount), 10) || 0 : '',
-                'Girls Uniforms': girlsCount !== undefined ? parseInt(String(girlsCount), 10) || 0 : '',
-                'Delivery Deadline': effectiveDeadline,
-                'Fabric Preference': fabricPreference || '',
-                'Colour Palette': colourPalette || color || '',
-                'Grade / Size Breakdown': sizeBreakdown || '',
-                'Embroidery Details': embroideryDetails || designDetails || '',
-                'Reference File URL': referenceFileUrl || '',
-                'Application Status': 'New',
-                'Admin Notes': adminNotes || 'Received via Zain Uniforms Website Form',
-                'Last Updated': submissionDate,
-              },
-            ],
+          // The payload keys matching the Google Sheet columns connected via SheetDB
+          // Providing both exact headers with sheet-detected spacing and clean variants
+          const sheetDbRow: Record<string, any> = {
+            // 1. School / Business Name
+            'School / Business Name   ': effectiveSchool,
+            'School / Business Name': effectiveSchool,
+
+            // 2. Contact Person Name & Designation
+            'Contact Person Name & Designation   ': contactPersonAndDesignation,
+            'Contact Person Name & Designation': contactPersonAndDesignation,
+
+            // 3. City / Campus Location
+            'City / Campus Location   ': effectiveCity,
+            'City / Campus Location': effectiveCity,
+
+            // 4. Official Mobile / Phone
+            'Official Mobile / Phone   ': effectivePhone,
+            'Official Mobile / Phone': effectivePhone,
+            'phone number': effectivePhone,
+
+            // 5. WhatsApp Number
+            'WhatsApp Number   ': whatsapp || effectivePhone,
+            'WhatsApp Number': whatsapp || effectivePhone,
+
+            // 6. Official Email Address
+            'Official Email Address   ': email || '',
+            'Official Email Address': email || '',
+            'Email ': email || '',
+            'Email': email || '',
+
+            // 7. Uniform Type / Items Needed
+            'Uniform Type / Items Needed   ': effectiveUniformType,
+            'Uniform Type / Items Needed': effectiveUniformType,
+            'product': effectiveUniformType,
+
+            // 8. Total Estimated Quantity
+            'Total Estimated Quantity   ': String(effectiveQuantity),
+            'Total Estimated Quantity': String(effectiveQuantity),
+            'amount ': String(effectiveQuantity),
+            'amount': String(effectiveQuantity),
+
+            // 9. Boys Uniforms (Est.)
+            'Boys Uniforms (Est.)   ': boysCount !== undefined && boysCount !== '' ? String(boysCount) : '0',
+            'Boys Uniforms (Est.)': boysCount !== undefined && boysCount !== '' ? String(boysCount) : '0',
+            'Boys Uniforms': boysCount !== undefined && boysCount !== '' ? String(boysCount) : '0',
+
+            // 10. Girls Uniforms (Est.)
+            'Girls Uniforms (Est.)   ': girlsCount !== undefined && girlsCount !== '' ? String(girlsCount) : '0',
+            'Girls Uniforms (Est.)': girlsCount !== undefined && girlsCount !== '' ? String(girlsCount) : '0',
+            'Girls Uniforms': girlsCount !== undefined && girlsCount !== '' ? String(girlsCount) : '0',
+
+            // 11. Delivery Deadline
+            'Delivery Deadline   ': effectiveDeadline,
+            'Delivery Deadline': effectiveDeadline,
+            'delivery date': effectiveDeadline,
+
+            // 12. Fabric Preference
+            'Fabric Preference   ': fabricPreference || '',
+            'Fabric Preference': fabricPreference || '',
+
+            // 13. Colour Palette
+            'Colour Palette   ': colourPalette || color || '',
+            'Colour Palette': colourPalette || color || '',
+
+            // 14. Grade / Size Breakdown Notes
+            'Grade / Size Breakdown Notes   ': sizeBreakdown || '',
+            'Grade / Size Breakdown Notes': sizeBreakdown || '',
+
+            // 15. School Crest / Monogram Embroidery Details
+            'School Crest / Monogram Embroidery Details   ': embroideryDetails || designDetails || '',
+            'School Crest / Monogram Embroidery Details': embroideryDetails || designDetails || '',
+
+            // System references & file attachments
+            'Application ID   ': applicationId,
+            'Application ID': applicationId,
+            'Submission Date   ': submissionDate,
+            'Submission Date': submissionDate,
+            'Reference File URL   ': referenceFileUrl || '',
+            'Reference File URL': referenceFileUrl || '',
+            'Application Status': 'New',
+          };
+
+          const sheetDbPayload = {
+            data: [sheetDbRow],
           };
 
           const sheetDbResponse = await fetch(SHEETDB_URL.trim(), {

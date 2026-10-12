@@ -125,7 +125,7 @@ export const Hero: React.FC<HeroProps> = ({ onShopClick, onCustomClick, onBulkCl
                     Authentic Pakistani School Uniforms
                   </p>
                   <p className="text-[11px] text-slate-300">
-                    Precision-stitched in Islamabad for schools nationwide
+                    Precision-stitched at Sadiqabad Rawalpindi for schools nationwide
                   </p>
                 </div>
                 <div className="text-right">

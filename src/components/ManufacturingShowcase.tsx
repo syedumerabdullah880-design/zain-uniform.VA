@@ -60,7 +60,7 @@ export const ManufacturingShowcase: React.FC = () => {
             <div className="flex items-center gap-2 text-xs font-semibold text-[#0F1E36] tracking-wider uppercase">
               <span>Pakistani Craftsmanship</span>
               <span aria-hidden="true">·</span>
-              <span>Industrial Facility in Islamabad</span>
+              <span>Tailoring & Retail Center in Rawalpindi</span>
             </div>
 
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-[#0F1E36]">
@@ -70,7 +70,7 @@ export const ManufacturingShowcase: React.FC = () => {
             </h2>
 
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
-              Zain Uniforms operates a dedicated uniform manufacturing unit in Islamabad's I-9 Industrial Area. We combine traditional tailoring craftsmanship with industrial precision so your children and students wear uniforms that look distinguished and withstand the demanding school year.
+              Zain Uniforms operates a dedicated uniform tailoring and retail center at koyla center, Shop#2867 Nishter St, Sadiqabad Rawalpindi. We combine traditional tailoring craftsmanship with precision so your children and students wear uniforms that look distinguished and withstand the demanding school year.
             </p>
 
             <div className="flex items-center gap-6 pt-2 text-xs text-slate-700 font-medium">
@@ -84,7 +84,7 @@ export const ManufacturingShowcase: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#C5A869]" />
-                <span>Direct Factory Pricing</span>
+                <span>Direct Workshop Pricing</span>
               </div>
             </div>
           </div>
@@ -93,12 +93,12 @@ export const ManufacturingShowcase: React.FC = () => {
             <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-slate-100">
               <img
                 src={workshopImage}
-                alt="Master tailor cutting navy school uniform fabric in Islamabad workshop"
+                alt="Master tailor cutting navy school uniform fabric in Rawalpindi workshop"
                 referrerPolicy="no-referrer"
                 className="w-full h-[280px] object-cover"
               />
               <div className="p-3 bg-slate-50 text-[11px] text-slate-600 flex justify-between">
-                <span>Zain Uniforms Workshop · Islamabad</span>
+                <span>Zain Uniforms · Sadiqabad, Rawalpindi</span>
                 <span className="font-semibold text-[#0F1E36]">Master Pattern Cutting</span>
               </div>
             </div>
