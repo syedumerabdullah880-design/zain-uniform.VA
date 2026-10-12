@@ -79,6 +79,11 @@ function doGet(e) {
 }
 
 function doPost(e) {
+  // Handle CORS preflight
+  if (e && e.parameter && e.parameter.method === "OPTIONS") {
+    return createJsonResponse({});
+  }
+
   var lock = LockService.getScriptLock();
   if (!lock.tryLock(30000)) {
     return createJsonResponse({
@@ -316,5 +321,8 @@ function padZero(num, size) {
 
 function createJsonResponse(data) {
   return ContentService.createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON);
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeader("Access-Control-Allow-Origin", "*")
+    .setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+    .setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
