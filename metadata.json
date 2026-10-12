@@ -1,0 +1,6 @@
+{
+  "name": "Zain Uniforms - School Uniform Manufacturer & Tailoring",
+  "description": "Premium Pakistani school uniform manufacturer, custom stitching, made-to-measure sizing, and wholesale uniform solutions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
