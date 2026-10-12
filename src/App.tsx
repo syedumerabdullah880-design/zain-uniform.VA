@@ -8,7 +8,7 @@ import { ProductCard } from './components/ProductCard';
 import { ProductModal } from './components/ProductModal';
 import { CustomUniforms } from './components/CustomUniforms';
 import { SchoolWholesale } from './components/SchoolWholesale';
-import { MeasurementGuideModal } from './components/MeasurementGuideModal';
+import { SizeGuidePage } from './components/SizeGuidePage';
 import { ManufacturingShowcase } from './components/ManufacturingShowcase';
 import { DeliverySection } from './components/DeliverySection';
 import { OrderTracking } from './components/OrderTracking';
@@ -29,17 +29,21 @@ const MainContent: React.FC = () => {
   const { products, language, getWhatsAppLink, settings } = useStore();
 
   // Navigation State
-  const [activeView, setActiveView] = useState<'home' | 'shop' | 'custom' | 'wholesale' | 'track'>('home');
+  const [activeView, setActiveView] = useState<'home' | 'shop' | 'custom' | 'wholesale' | 'track' | 'size-guide'>('home');
   const [selectedCategory, setSelectedCategory] = useState<UniformCategory | 'All'>('All');
 
   // Modals & Drawers
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
-  const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [confirmedOrder, setConfirmedOrder] = useState<Order | null>(null);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [policiesModalTab, setPoliciesModalTab] = useState<string | null>(null);
+
+  const navigateToSizeGuide = () => {
+    setActiveView('size-guide');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Quick category selection from homepage
   const handleSelectCategoryFromHome = (cat: UniformCategory) => {
@@ -63,7 +67,7 @@ const MainContent: React.FC = () => {
           setActiveView('shop');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
-        openSizeGuide={() => setIsSizeGuideOpen(true)}
+        openSizeGuide={navigateToSizeGuide}
         openAdmin={() => setIsAdminOpen(true)}
         openProfile={() => setIsProfileOpen(true)}
       />
@@ -167,10 +171,10 @@ const MainContent: React.FC = () => {
                       Start Custom Order (6 Steps)
                     </button>
                     <button
-                      onClick={() => setIsSizeGuideOpen(true)}
+                      onClick={navigateToSizeGuide}
                       className="w-full sm:w-auto px-5 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold border border-slate-700 transition-colors cursor-pointer text-center"
                     >
-                      How to Measure
+                      Size Guide & Matrix
                     </button>
                   </div>
                 </div>
@@ -289,7 +293,7 @@ const MainContent: React.FC = () => {
 
         {/* VIEW 3: CUSTOM UNIFORMS */}
         {activeView === 'custom' && (
-          <CustomUniforms onOpenSizeGuide={() => setIsSizeGuideOpen(true)} />
+          <CustomUniforms onOpenSizeGuide={navigateToSizeGuide} />
         )}
 
         {/* VIEW 4: SCHOOL & WHOLESALE */}
@@ -297,6 +301,9 @@ const MainContent: React.FC = () => {
 
         {/* VIEW 5: ORDER TRACKING */}
         {activeView === 'track' && <OrderTracking />}
+
+        {/* VIEW 6: SIZE GUIDE */}
+        {activeView === 'size-guide' && <SizeGuidePage />}
       </main>
 
       {/* Footer */}
@@ -311,7 +318,7 @@ const MainContent: React.FC = () => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
         onOpenPolicies={(tab) => setPoliciesModalTab(tab)}
-        onOpenSizeGuide={() => setIsSizeGuideOpen(true)}
+        onOpenSizeGuide={navigateToSizeGuide}
         onOpenAdmin={() => setIsAdminOpen(true)}
         onOpenProfile={() => setIsProfileOpen(true)}
       />
@@ -324,27 +331,21 @@ const MainContent: React.FC = () => {
       <ProductModal
         product={activeProduct}
         onClose={() => setActiveProduct(null)}
-        onOpenSizeGuide={() => setIsSizeGuideOpen(true)}
+        onOpenSizeGuide={navigateToSizeGuide}
         onBuyNow={() => {
           setActiveProduct(null);
           setIsCheckoutOpen(true);
         }}
       />
 
-      {/* 2. Size Guide Modal */}
-      <MeasurementGuideModal
-        isOpen={isSizeGuideOpen}
-        onClose={() => setIsSizeGuideOpen(false)}
-      />
-
-      {/* 3. Checkout Modal */}
+      {/* 2. Checkout Modal */}
       <CheckoutModal
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
         onOrderSuccess={(order) => setConfirmedOrder(order)}
       />
 
-      {/* 5. Order Confirmation Receipt Modal */}
+      {/* 3. Order Confirmation Receipt Modal */}
       <OrderReceiptModal
         order={confirmedOrder}
         onClose={() => setConfirmedOrder(null)}
@@ -355,7 +356,7 @@ const MainContent: React.FC = () => {
         }}
       />
 
-      {/* 6. Admin Management Portal */}
+      {/* 4. Admin Management Portal */}
       <AdminDashboard
         isOpen={isAdminOpen}
         onClose={() => setIsAdminOpen(false)}
@@ -365,14 +366,14 @@ const MainContent: React.FC = () => {
         }}
       />
 
-      {/* 7. Policies Modal */}
+      {/* 5. Policies Modal */}
       <PoliciesModal
         isOpen={policiesModalTab !== null}
         initialTab={policiesModalTab || 'delivery'}
         onClose={() => setPoliciesModalTab(null)}
       />
 
-      {/* 8. Official Business Profile Modal */}
+      {/* 6. Official Business Profile Modal */}
       <BusinessProfileModal
         isOpen={isProfileOpen}
         onClose={() => setIsProfileOpen(false)}
