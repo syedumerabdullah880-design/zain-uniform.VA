@@ -31,6 +31,7 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({
     'Blazers & Sweaters',
     'Sports Uniforms',
     'Accessories',
+    'Medical & Healthcare Uniforms',
   ];
 
   const filteredProducts = useMemo(() => {

@@ -12,6 +12,7 @@ import { SizeGuidePage } from './components/SizeGuidePage';
 import { ManufacturingShowcase } from './components/ManufacturingShowcase';
 import { DeliverySection } from './components/DeliverySection';
 import { OrderTracking } from './components/OrderTracking';
+import { UniformsAndSportswearSection } from './components/UniformsAndSportswearSection';
 import { CheckoutModal } from './components/CheckoutModal';
 import { OrderReceiptModal } from './components/OrderReceiptModal';
 import { AdminDashboard } from './components/AdminDashboard';
@@ -229,6 +230,16 @@ const MainContent: React.FC = () => {
                 </div>
               </div>
             </section>
+
+            {/* 7.5 Uniforms & Sportswear Section */}
+            <UniformsAndSportswearSection
+              onSelectCategory={(cat) => {
+                setSelectedCategory(cat);
+                setActiveView('shop');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onViewProduct={(p) => setActiveProduct(p)}
+            />
 
             {/* 8. Why Choose Zain Uniforms & Social Proof */}
             <TestimonialsSection />

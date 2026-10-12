@@ -6,7 +6,8 @@ export type UniformCategory =
   | 'Skirts & Pinafores' 
   | 'Blazers & Sweaters' 
   | 'Sports Uniforms' 
-  | 'Accessories';
+  | 'Accessories'
+  | 'Medical & Healthcare Uniforms';
 
 export interface CustomMeasurements {
   unit: 'inches' | 'cm';
