@@ -4,7 +4,7 @@ import { useStore } from '../context/StoreContext';
 
 export const ManufacturingShowcase: React.FC = () => {
   const { language } = useStore();
-  const workshopImage = '/src/assets/images/craftsmanship_workshop_1791745387660.jpg';
+  const workshopImage = '/images/craftsmanship_workshop_1791745387660.jpg';
 
   const steps = [
     {

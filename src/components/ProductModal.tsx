@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Check, Ruler, MessageCircle, ShoppingBag, Truck, ShieldCheck, Clock, Scissors } from 'lucide-react';
+import { X, Check, Ruler, MessageCircle, Truck, ShieldCheck, Clock, Scissors } from 'lucide-react';
 import { Product, CustomMeasurements } from '../types';
 import { useStore } from '../context/StoreContext';
 
@@ -37,18 +37,6 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   });
 
   const isCustomSize = selectedSize === 'Custom';
-
-  const handleAddToCart = () => {
-    addToCart(
-      product,
-      selectedSize,
-      selectedColor,
-      isStitched,
-      isCustomSize ? customMeasurements : undefined,
-      quantity
-    );
-    onClose();
-  };
 
   const handleDirectBuy = () => {
     addToCart(
@@ -96,6 +84,12 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 src={product.image}
                 alt={product.name}
                 referrerPolicy="no-referrer"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (!target.src.includes('product_formal_shirt')) {
+                    target.src = '/images/product_formal_shirt_1791745342211.jpg';
+                  }
+                }}
                 className="w-full h-full object-cover"
               />
               {product.isMadeToOrder && (
@@ -402,26 +396,15 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               </div>
             </div>
 
-            {/* CTAs: Add to Cart, Buy Now, WhatsApp */}
+            {/* CTAs: Order Booking & WhatsApp */}
             <div className="space-y-2 pt-2 border-t border-slate-200">
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={handleAddToCart}
-                  className="w-full py-3 px-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-                >
-                  <ShoppingBag className="w-4 h-4 text-[#C5A869]" />
-                  <span>Add to Request Bag</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleDirectBuy}
-                  className="w-full py-3 px-4 bg-[#C5A869] hover:bg-[#d5b97d] text-[#0F1E36] rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-                >
-                  <span>Submit Order Booking</span>
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={handleDirectBuy}
+                className="w-full py-3.5 px-4 bg-[#C5A869] hover:bg-[#d5b97d] text-[#0F1E36] rounded-xl text-sm font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+              >
+                <span>Submit Order Booking</span>
+              </button>
 
               <a
                 href={getWhatsAppLink(waOrderText)}

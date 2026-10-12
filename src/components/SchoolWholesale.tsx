@@ -20,6 +20,7 @@ export const SchoolWholesale: React.FC = () => {
   const [submittedApplication, setSubmittedApplication] = useState<SubmittedApplicationInfo | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
 
   // Form State
@@ -61,15 +62,17 @@ export const SchoolWholesale: React.FC = () => {
     setReferenceFileName('');
     setFieldErrors({});
     setSubmitError(null);
+    setFileError(null);
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 15 * 1024 * 1024) {
-        alert('File size exceeds 15MB limit. Please upload a smaller file.');
+        setFileError('File size exceeds 15MB limit. Please upload a smaller image or document.');
         return;
       }
+      setFileError(null);
       setReferenceFileName(file.name);
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -447,7 +450,7 @@ export const SchoolWholesale: React.FC = () => {
                   <input
                     type="tel"
                     required
-                    placeholder="0300 1234567"
+                    placeholder="03XXXXXXXXX"
                     value={phone}
                     onChange={e => {
                       setPhone(e.target.value);
@@ -470,7 +473,7 @@ export const SchoolWholesale: React.FC = () => {
                   </label>
                   <input
                     type="tel"
-                    placeholder="0300 1234567"
+                    placeholder="03XXXXXXXXX"
                     value={whatsapp}
                     onChange={e => setWhatsapp(e.target.value)}
                     className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs text-slate-900"
@@ -687,6 +690,9 @@ export const SchoolWholesale: React.FC = () => {
                       </div>
                     )}
                   </div>
+                  {fileError && (
+                    <p className="text-[11px] text-rose-600 mt-1 font-medium">{fileError}</p>
+                  )}
                 </div>
               </div>
 

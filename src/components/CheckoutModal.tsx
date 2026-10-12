@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, CheckCircle2, ShieldCheck, Truck, ShoppingBag, FileText } from 'lucide-react';
+import { X, CheckCircle2, ShieldCheck, Truck, ShoppingBag, FileText, AlertCircle } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { Order } from '../types';
 
@@ -25,6 +25,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [area, setArea] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [notes, setNotes] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -32,21 +33,29 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!customerName || !phone || !address || !city) {
-      alert('Please fill out all required address and contact fields.');
+    setErrorMessage(null);
+
+    if (!customerName.trim() || !phone.trim() || !address.trim() || !city.trim()) {
+      setErrorMessage('Please fill out all required recipient, phone, and delivery address fields.');
+      return;
+    }
+
+    const cleanPhone = phone.replace(/\D/g, '');
+    if (cleanPhone.length < 10) {
+      setErrorMessage('Please enter a valid contact phone number with at least 10 digits.');
       return;
     }
 
     const createdOrder = placeOrder({
-      customerName,
-      phone,
-      whatsapp: whatsapp || phone,
-      email: email || 'customer@zainuniforms.pk',
-      address,
-      city,
-      area: area || city,
-      postalCode,
-      notes,
+      customerName: customerName.trim(),
+      phone: phone.trim(),
+      whatsapp: whatsapp.trim() || phone.trim(),
+      email: email.trim() || 'orders@zainuniforms.pk',
+      address: address.trim(),
+      city: city.trim(),
+      area: area.trim() || city.trim(),
+      postalCode: postalCode.trim(),
+      notes: notes.trim(),
     });
 
     onOrderSuccess(createdOrder);
@@ -76,6 +85,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
         {/* Form */}
         <form onSubmit={handlePlaceOrder} className="overflow-y-auto p-6 space-y-6">
+          {errorMessage && (
+            <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-xl flex items-center gap-2.5">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
           {/* Customer & Address Details */}
           <div className="space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#0F1E36]">
@@ -104,7 +120,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 <input
                   type="tel"
                   required
-                  placeholder="e.g. 0300 1234567"
+                  placeholder="03XXXXXXXXX"
                   value={phone}
                   onChange={e => setPhone(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white text-slate-900"
@@ -117,7 +133,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </label>
                 <input
                   type="tel"
-                  placeholder="e.g. 0300 1234567"
+                  placeholder="03XXXXXXXXX"
                   value={whatsapp}
                   onChange={e => setWhatsapp(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white text-slate-900"
@@ -130,7 +146,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </label>
                 <input
                   type="email"
-                  placeholder="asif@example.com"
+                  placeholder="customer@email.com"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-300 rounded-lg bg-white text-slate-900"
@@ -231,7 +247,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               onClick={onClose}
               className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 cursor-pointer"
             >
-              Back to Request Bag
+              Cancel
             </button>
 
             <button

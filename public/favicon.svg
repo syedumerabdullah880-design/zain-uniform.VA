@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F1E36"/>
+      <stop offset="100%" stop-color="#050B14"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5E6BE"/>
+      <stop offset="40%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#AA8220"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)" stroke="url(#gold)" stroke-width="2"/>
+  <!-- Crest point -->
+  <polygon points="32,8 35,13 29,13" fill="url(#gold)"/>
+  <!-- ZYN Monogram -->
+  <g fill="url(#gold)">
+    <!-- Z -->
+    <path d="M12 18 H26 L14 38 H27 V42 H11 L23 22 H12 Z"/>
+    <!-- Y -->
+    <path d="M28 18 L32 28 L36 18 H40 L34 32 V42 H30 V32 L24 18 Z"/>
+    <!-- N -->
+    <path d="M38 18 H42 L49 37 V18 H53 V42 H49 L42 23 V42 H38 Z"/>
+  </g>
+  <!-- Base stitch line -->
+  <line x1="14" y1="48" x2="50" y2="48" stroke="url(#gold)" stroke-width="1.2" stroke-dasharray="2,1.5"/>
+  <text x="32" y="56" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="5.5" letter-spacing="1.5" fill="url(#gold)">ZAIN</text>
+</svg>

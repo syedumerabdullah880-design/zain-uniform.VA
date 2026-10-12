@@ -91,7 +91,7 @@ export const OrderTracking: React.FC = () => {
                 <input
                   type="tel"
                   required
-                  placeholder="0300 1234567"
+                  placeholder="03XXXXXXXXX"
                   value={phone}
                   onChange={e => setPhone(e.target.value)}
                   className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs text-slate-900"
@@ -103,7 +103,7 @@ export const OrderTracking: React.FC = () => {
               {/* Quick sample chips for testing */}
               {orders.length > 0 && (
                 <div className="flex items-center gap-1.5 text-[11px] text-slate-500 flex-wrap">
-                  <span>Try demo order:</span>
+                  <span>Recent orders:</span>
                   {orders.slice(0, 2).map(ord => (
                     <button
                       key={ord.id}

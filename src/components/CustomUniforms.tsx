@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Scissors, Ruler, CheckCircle2, Upload, MessageCircle, FileText, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Scissors, Ruler, CheckCircle2, Upload, MessageCircle, FileText, ArrowRight, ArrowLeft, AlertCircle } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { Gender, CustomMeasurements, CustomOrderQuote } from '../types';
 
@@ -12,6 +12,7 @@ export const CustomUniforms: React.FC<CustomUniformsProps> = ({ onOpenSizeGuide 
 
   const [step, setStep] = useState<number>(1);
   const [submittedQuote, setSubmittedQuote] = useState<CustomOrderQuote | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
 
   // Form State
   const [uniformType, setUniformType] = useState('School Shirt & Trouser Combo');
@@ -60,16 +61,24 @@ export const CustomUniforms: React.FC<CustomUniformsProps> = ({ onOpenSizeGuide 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!customerName || !phone) {
-      alert('Please provide your name and phone number so our tailoring team can reach you.');
+    setFormError(null);
+
+    if (!customerName.trim() || !phone.trim()) {
+      setFormError('Please provide your recipient name and mobile phone number so our tailoring team can reach you.');
+      return;
+    }
+
+    const cleanPhone = phone.replace(/\D/g, '');
+    if (cleanPhone.length < 10) {
+      setFormError('Please enter a valid phone number with at least 10 digits.');
       return;
     }
 
     const created = submitCustomQuote({
-      customerName,
-      phone,
-      whatsapp: whatsapp || phone,
-      email: email || 'customer@zainuniforms.pk',
+      customerName: customerName.trim(),
+      phone: phone.trim(),
+      whatsapp: whatsapp.trim() || phone.trim(),
+      email: email.trim() || 'customer@zainuniforms.pk',
       schoolName,
       uniformType,
       gender,
@@ -772,6 +781,13 @@ export const CustomUniforms: React.FC<CustomUniformsProps> = ({ onOpenSizeGuide 
                     </div>
                   </div>
 
+                  {formError && (
+                    <div className="p-3 bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-xl flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                      <span>{formError}</span>
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">
@@ -794,7 +810,7 @@ export const CustomUniforms: React.FC<CustomUniformsProps> = ({ onOpenSizeGuide 
                       <input
                         type="tel"
                         required
-                        placeholder="e.g. 0300 1234567"
+                        placeholder="03XXXXXXXXX"
                         value={phone}
                         onChange={e => setPhone(e.target.value)}
                         className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs text-slate-900"
@@ -807,7 +823,7 @@ export const CustomUniforms: React.FC<CustomUniformsProps> = ({ onOpenSizeGuide 
                       </label>
                       <input
                         type="tel"
-                        placeholder="e.g. 0300 1234567"
+                        placeholder="03XXXXXXXXX"
                         value={whatsapp}
                         onChange={e => setWhatsapp(e.target.value)}
                         className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs text-slate-900"
@@ -820,7 +836,7 @@ export const CustomUniforms: React.FC<CustomUniformsProps> = ({ onOpenSizeGuide 
                       </label>
                       <input
                         type="email"
-                        placeholder="name@example.com"
+                        placeholder="customer@email.com"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                         className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs text-slate-900"

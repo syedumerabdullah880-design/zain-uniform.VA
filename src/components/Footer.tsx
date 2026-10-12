@@ -1,7 +1,8 @@
 import React from 'react';
-import { Phone, Mail, MapPin, MessageCircle, ShieldCheck } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, ShieldCheck, Award } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { UniformCategory } from '../types';
+import { BrandLogo } from './BrandLogo';
 
 interface FooterProps {
   onNavigate: (view: string) => void;
@@ -9,6 +10,7 @@ interface FooterProps {
   onOpenPolicies: (tab: string) => void;
   onOpenSizeGuide: () => void;
   onOpenAdmin: () => void;
+  onOpenProfile?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -17,6 +19,7 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenPolicies,
   onOpenSizeGuide,
   onOpenAdmin,
+  onOpenProfile,
 }) => {
   const { settings, getWhatsAppLink } = useStore();
 
@@ -26,14 +29,13 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
           {/* Col 1: Brand Info */}
           <div className="space-y-4 lg:col-span-1">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#C5A869] text-[#0F1E36] font-bold text-sm flex items-center justify-center">
-                ZU
-              </div>
-              <span className="text-base font-bold text-white tracking-tight">
-                Zain Uniforms
-              </span>
-            </div>
+            <button
+              onClick={onOpenProfile}
+              className="text-left group cursor-pointer"
+              title="View Business Profile"
+            >
+              <BrandLogo variant="banner" size="sm" />
+            </button>
 
             <p className="text-slate-400 leading-relaxed text-xs">
               School uniforms made for quality, comfort, and the perfect fit. Serving Pakistani families, educational institutions, and wholesale retailers with dedicated craftsmanship.
@@ -121,14 +123,6 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate('about')}
-                  className="hover:text-white transition-colors cursor-pointer"
-                >
-                  Our Tailoring Workshop
-                </button>
-              </li>
-              <li>
-                <button
                   onClick={() => onOpenPolicies('custom')}
                   className="hover:text-white transition-colors cursor-pointer"
                 >
@@ -182,6 +176,15 @@ export const Footer: React.FC<FooterProps> = ({
                   className="hover:text-white transition-colors cursor-pointer"
                 >
                   Privacy & Terms
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={onOpenProfile}
+                  className="text-[#C5A869] hover:text-white transition-colors cursor-pointer flex items-center gap-1 font-semibold"
+                >
+                  <Award className="w-3.5 h-3.5" />
+                  <span>Verified Business Profile</span>
                 </button>
               </li>
             </ul>

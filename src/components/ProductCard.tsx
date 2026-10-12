@@ -1,18 +1,17 @@
 import React from 'react';
-import { Eye, MessageCircle, ShoppingBag } from 'lucide-react';
+import { Eye, MessageCircle } from 'lucide-react';
 import { Product } from '../types';
 import { useStore } from '../context/StoreContext';
 
 interface ProductCardProps {
   product: Product;
   onViewDetails: (product: Product) => void;
-  onQuickAdd: (product: Product) => void;
+  onQuickAdd?: (product: Product) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   onViewDetails,
-  onQuickAdd,
 }) => {
   const { language, getWhatsAppLink } = useStore();
 
@@ -26,6 +25,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           src={product.image}
           alt={product.name}
           referrerPolicy="no-referrer"
+          onError={(e) => {
+            const target = e.currentTarget;
+            if (!target.src.includes('product_formal_shirt')) {
+              target.src = '/images/product_formal_shirt_1791745342211.jpg';
+            }
+          }}
           className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
         />
 
@@ -42,26 +47,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Quick View Hover Action */}
-        <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 p-4">
+        <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
           <button
             onClick={(e) => {
               e.stopPropagation();
               onViewDetails(product);
             }}
-            className="px-3.5 py-2 bg-white text-[#0F1E36] text-xs font-semibold rounded-lg shadow-sm hover:bg-slate-50 transition-colors flex items-center gap-1.5 cursor-pointer"
+            className="px-4 py-2 bg-white text-[#0F1E36] text-xs font-semibold rounded-lg shadow-sm hover:bg-slate-50 transition-colors flex items-center gap-1.5 cursor-pointer"
           >
             <Eye className="w-3.5 h-3.5" />
-            <span>Details</span>
-          </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onQuickAdd(product);
-            }}
-            className="px-3.5 py-2 bg-[#0F1E36] text-white text-xs font-semibold rounded-lg shadow-sm hover:bg-[#1E293B] transition-colors flex items-center gap-1.5 cursor-pointer"
-          >
-            <ShoppingBag className="w-3.5 h-3.5 text-[#C5A869]" />
-            <span>Quick Add</span>
+            <span>View Details</span>
           </button>
         </div>
       </div>
@@ -131,10 +126,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </a>
 
             <button
-              onClick={() => onQuickAdd(product)}
-              className="px-3 py-1.5 text-xs font-semibold bg-[#0F1E36] hover:bg-slate-800 text-white rounded-lg transition-colors cursor-pointer"
+              onClick={() => onViewDetails(product)}
+              className="px-3.5 py-1.5 text-xs font-semibold bg-[#0F1E36] hover:bg-slate-800 text-white rounded-lg transition-colors cursor-pointer"
             >
-              Add to Bag
+              Order Details
             </button>
           </div>
         </div>

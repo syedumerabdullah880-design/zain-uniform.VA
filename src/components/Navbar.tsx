@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Search, Menu, X, Globe, Phone, ShieldCheck } from 'lucide-react';
+import { Search, Menu, X, Globe, Phone, ShieldCheck, Award } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
+import { BrandLogo } from './BrandLogo';
 
 interface NavbarProps {
   activeView: string;
   setActiveView: (view: string) => void;
-  openCart: () => void;
   openSearch: () => void;
   openSizeGuide: () => void;
   openAdmin: () => void;
+  openProfile?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   activeView,
   setActiveView,
-  openCart,
   openSearch,
   openSizeGuide,
   openAdmin,
+  openProfile,
 }) => {
-  const { settings, cartCount, language, toggleLanguage, getWhatsAppLink } = useStore();
+  const { settings, language, toggleLanguage, getWhatsAppLink } = useStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleNavClick = (view: string) => {
@@ -33,7 +34,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'custom', labelEn: 'Custom Stitching', labelUr: 'کسٹم سلائی' },
     { id: 'wholesale', labelEn: 'School & Bulk', labelUr: 'اسکول اور ہول سیل' },
     { id: 'track', labelEn: 'Track Order', labelUr: 'آرڈر ٹریکنگ' },
-    { id: 'about', labelEn: 'Our Workshop', labelUr: 'ہماری ورکشاپ' },
   ];
 
   return (
@@ -68,6 +68,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               </a>
               <span className="text-slate-600">|</span>
               <button
+                onClick={openProfile}
+                className="hover:text-white transition-colors flex items-center gap-1 text-slate-300 font-medium"
+                title="Official Business Profile"
+              >
+                <Award className="w-3 h-3 text-[#C5A869]" />
+                <span>Profile</span>
+              </button>
+              <span className="text-slate-600">|</span>
+              <button
                 onClick={openAdmin}
                 className="hover:text-white transition-colors flex items-center gap-1 text-slate-400"
                 title="Management Portal"
@@ -83,22 +92,13 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Main Navigation - Strict Top Bar Contract */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-8 h-18">
-          {/* Zone 1: Brand Wordmark (Single element) */}
+          {/* Zone 1: Brand Wordmark with Official ZYN Logo */}
           <button
             onClick={() => handleNavClick('home')}
             className="flex items-center gap-3 text-left focus:outline-none group cursor-pointer shrink-0"
+            title="Zain Uniforms - Home"
           >
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#1E293B] to-[#0B1526] border border-[#C5A869]/40 flex items-center justify-center text-[#C5A869] font-bold text-lg shadow-inner">
-              ZU
-            </div>
-            <div>
-              <span className="text-xl sm:text-2xl font-bold tracking-tight text-white block">
-                Zain Uniforms
-              </span>
-              <span className="text-[10px] uppercase tracking-widest text-[#C5A869] block -mt-1 font-medium">
-                Tailored in Pakistan
-              </span>
-            </div>
+            <BrandLogo variant="banner" size="md" />
           </button>
 
           {/* Zone 2: Navigation Links (Single-line, unboxed) */}
@@ -143,23 +143,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <Globe className="w-3.5 h-3.5 text-[#C5A869]" />
               <span>{language === 'en' ? 'اردو' : 'EN'}</span>
-            </button>
-
-            {/* Cart Trigger */}
-            <button
-              onClick={openCart}
-              aria-label="View shopping cart"
-              className="relative p-2.5 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 rounded-lg text-white transition-colors cursor-pointer flex items-center gap-2"
-            >
-              <ShoppingBag className="w-5 h-5 text-[#C5A869]" />
-              <span className="hidden sm:inline text-xs font-semibold">
-                Cart
-              </span>
-              {cartCount > 0 && (
-                <span className="px-1.5 py-0.2 bg-[#C5A869] text-[#0F1E36] text-[11px] font-bold rounded-full">
-                  {cartCount}
-                </span>
-              )}
             </button>
 
             {/* Primary Action Button */}
@@ -207,6 +190,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="text-left px-3 py-2.5 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-800/50 hover:text-white"
             >
               {language === 'ur' ? 'سائز گائیڈ' : 'Size Guide'}
+            </button>
+            <button
+              onClick={() => {
+                openProfile?.();
+                setMobileMenuOpen(false);
+              }}
+              className="text-left px-3 py-2.5 rounded-md text-sm font-medium text-slate-300 hover:bg-slate-800/50 hover:text-white flex items-center gap-2"
+            >
+              <Award className="w-4 h-4 text-[#C5A869]" />
+              <span>Business Profile</span>
             </button>
             <button
               onClick={() => {

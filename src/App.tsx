@@ -12,7 +12,6 @@ import { MeasurementGuideModal } from './components/MeasurementGuideModal';
 import { ManufacturingShowcase } from './components/ManufacturingShowcase';
 import { DeliverySection } from './components/DeliverySection';
 import { OrderTracking } from './components/OrderTracking';
-import { CartDrawer } from './components/CartDrawer';
 import { CheckoutModal } from './components/CheckoutModal';
 import { OrderReceiptModal } from './components/OrderReceiptModal';
 import { AdminDashboard } from './components/AdminDashboard';
@@ -22,23 +21,24 @@ import { PoliciesModal } from './components/PoliciesModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { Footer } from './components/Footer';
 import { ShopCatalog } from './components/ShopCatalog';
+import { BusinessProfileModal } from './components/BusinessProfileModal';
 import { Product, Order, UniformCategory } from './types';
 import { ArrowRight, Scissors, Building2, MessageCircle, Sparkles, CheckCircle2 } from 'lucide-react';
 
 const MainContent: React.FC = () => {
-  const { products, addToCart, language, getWhatsAppLink, settings } = useStore();
+  const { products, language, getWhatsAppLink, settings } = useStore();
 
   // Navigation State
-  const [activeView, setActiveView] = useState<'home' | 'shop' | 'custom' | 'wholesale' | 'track' | 'about'>('home');
+  const [activeView, setActiveView] = useState<'home' | 'shop' | 'custom' | 'wholesale' | 'track'>('home');
   const [selectedCategory, setSelectedCategory] = useState<UniformCategory | 'All'>('All');
 
   // Modals & Drawers
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [confirmedOrder, setConfirmedOrder] = useState<Order | null>(null);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [policiesModalTab, setPoliciesModalTab] = useState<string | null>(null);
 
   // Quick category selection from homepage
@@ -46,11 +46,6 @@ const MainContent: React.FC = () => {
     setSelectedCategory(cat);
     setActiveView('shop');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleQuickAdd = (product: Product) => {
-    addToCart(product, product.sizes[0] || 'M', product.colors[0]?.name || 'Standard', true);
-    setIsCartOpen(true);
   };
 
   const popularProducts = products.filter(p => p.featured).slice(0, 4);
@@ -64,13 +59,13 @@ const MainContent: React.FC = () => {
           setActiveView(v as any);
           if (v === 'shop') setSelectedCategory('All');
         }}
-        openCart={() => setIsCartOpen(true)}
         openSearch={() => {
           setActiveView('shop');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
         openSizeGuide={() => setIsSizeGuideOpen(true)}
         openAdmin={() => setIsAdminOpen(true)}
+        openProfile={() => setIsProfileOpen(true)}
       />
 
       {/* Main View Router */}
@@ -138,7 +133,6 @@ const MainContent: React.FC = () => {
                       key={product.id}
                       product={product}
                       onViewDetails={p => setActiveProduct(p)}
-                      onQuickAdd={handleQuickAdd}
                     />
                   ))}
                 </div>
@@ -290,7 +284,6 @@ const MainContent: React.FC = () => {
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
             onViewProduct={p => setActiveProduct(p)}
-            onQuickAdd={handleQuickAdd}
           />
         )}
 
@@ -304,27 +297,6 @@ const MainContent: React.FC = () => {
 
         {/* VIEW 5: ORDER TRACKING */}
         {activeView === 'track' && <OrderTracking />}
-
-        {/* VIEW 6: ABOUT / WORKSHOP */}
-        {activeView === 'about' && (
-          <div>
-            <div className="bg-[#0F1E36] text-white py-14 border-b border-slate-800">
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-                <span className="text-xs uppercase font-bold text-[#C5A869] tracking-wider">
-                  Our Story & Craftsmanship
-                </span>
-                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                  Made for Schools. Built on Quality.
-                </h1>
-                <p className="text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed">
-                  Zain Uniforms was established with a singular mission: to eliminate the hassle and poor fits of standard uniform bazaars by bringing industrial garment precision and personalized tailoring directly to Pakistani families.
-                </p>
-              </div>
-            </div>
-            <ManufacturingShowcase />
-            <DeliverySection />
-          </div>
-        )}
       </main>
 
       {/* Footer */}
@@ -341,6 +313,7 @@ const MainContent: React.FC = () => {
         onOpenPolicies={(tab) => setPoliciesModalTab(tab)}
         onOpenSizeGuide={() => setIsSizeGuideOpen(true)}
         onOpenAdmin={() => setIsAdminOpen(true)}
+        onOpenProfile={() => setIsProfileOpen(true)}
       />
 
       {/* Floating WhatsApp Action Button */}
@@ -364,14 +337,7 @@ const MainContent: React.FC = () => {
         onClose={() => setIsSizeGuideOpen(false)}
       />
 
-      {/* 3. Cart Drawer */}
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        onProceedToCheckout={() => setIsCheckoutOpen(true)}
-      />
-
-      {/* 4. Checkout Modal */}
+      {/* 3. Checkout Modal */}
       <CheckoutModal
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
@@ -404,6 +370,17 @@ const MainContent: React.FC = () => {
         isOpen={policiesModalTab !== null}
         initialTab={policiesModalTab || 'delivery'}
         onClose={() => setPoliciesModalTab(null)}
+      />
+
+      {/* 8. Official Business Profile Modal */}
+      <BusinessProfileModal
+        isOpen={isProfileOpen}
+        onClose={() => setIsProfileOpen(false)}
+        onNavigate={(v) => {
+          setIsProfileOpen(false);
+          setActiveView(v as any);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
       />
     </div>
   );

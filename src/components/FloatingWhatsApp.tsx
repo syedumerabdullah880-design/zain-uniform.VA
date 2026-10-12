@@ -15,7 +15,14 @@ export const FloatingWhatsApp: React.FC = () => {
 
   const handleSend = (text: string) => {
     const targetText = text || customMsg || 'Salam Zain Uniforms! I would like to inquire about school uniforms.';
-    window.open(getWhatsAppLink(targetText), '_blank');
+    const url = getWhatsAppLink(targetText);
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     setIsOpen(false);
   };
 

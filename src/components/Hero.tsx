@@ -11,7 +11,7 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onShopClick, onCustomClick, onBulkClick }) => {
   const { settings, language, getWhatsAppLink } = useStore();
 
-  const heroImage = '/src/assets/images/hero_pakistan_uniforms_1791745324118.jpg';
+  const heroImage = '/images/hero_pakistan_uniforms_1791745324118.jpg';
 
   const defaultWhatsAppMsg = 'Salam Zain Uniforms! I am looking for school uniforms and would like details on sizes and availability.';
 

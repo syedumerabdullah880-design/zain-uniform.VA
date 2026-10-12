@@ -50,7 +50,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     deliveryDaysEstimate: '2-4 business days across Pakistan',
     description: 'Masterfully stitched school shirt crafted from breathable high-count 60/40 Oxford cotton. Features an interlined stiffened collar that stays sharp through full school days, reinforced seam stitching, single chest pocket, and durable resin buttons.',
     descriptionUrdu: 'اعلیٰ کوالٹی آکسفورڈ کاٹن سے تیار کردہ پائیدار اور آرام دہ اسکول شرٹ۔ مضبوط کالر اور دھلائی کے بعد بھی شکن سے محفوظ۔',
-    image: '/src/assets/images/product_formal_shirt_1791745342211.jpg',
+    image: '/images/product_formal_shirt_1791745342211.jpg',
     featured: true,
     careInstructions: 'Machine wash warm with like whites. Medium warm iron. Do not bleach.'
   },
@@ -76,7 +76,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     deliveryDaysEstimate: '2-4 business days',
     description: 'Durable school trousers engineered for classroom comfort and playground movement. Featuring double-reinforced knees, an adjustable internal waistband for growing boys, deep side pockets, and neat blind-hemmed bottoms.',
     descriptionUrdu: 'آل سیزن پولی وسکوز کپڑے سے تیار کردہ پائیدار ٹراؤزر۔ ڈبل سلائی اور ایڈجسٹ ایبل بیلٹ کے ساتھ۔',
-    image: '/src/assets/images/craftsmanship_workshop_1791745387660.jpg',
+    image: '/images/craftsmanship_workshop_1791745387660.jpg',
     featured: true,
     careInstructions: 'Warm gentle wash. Line dry in shade. Warm iron.'
   },
@@ -102,7 +102,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     deliveryDaysEstimate: '3-5 business days',
     description: 'Classic school pinafore uniform dress with permanent sharp box pleats, inner lining for modest opacity, shoulder button closures, and side zipper with safety hook. Includes matching school collar ribbon tie.',
     descriptionUrdu: 'مضبوط پریسڈ پلیٹوں اور اعلیٰ اندرونی استر کے ساتھ تیار کردہ اسکول پینافور ڈریس۔ آرام دہ اور باوقار ڈیزائن۔',
-    image: '/src/assets/images/product_girls_pinafore_1791745370566.jpg',
+    image: '/images/product_girls_pinafore_1791745370566.jpg',
     featured: true,
     careInstructions: 'Hand or delicate machine wash. Hang immediately to preserve sharp pleats.'
   },
@@ -129,7 +129,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     deliveryDaysEstimate: '4-6 business days',
     description: 'Distinguished winter uniform blazer structured with canvassed lapels, premium satin inner lining, two brass-finish gold crest front buttons, sleeve cuff buttons, and breast pocket tailored for direct embroidery or patch badge application.',
     descriptionUrdu: 'شاندار ٹیری وول سے تیار کردہ سرمائی اسکول بلیزر۔ اندرونی ساٹن استر اور سنہری کرسٹ بٹنوں کے ساتھ۔',
-    image: '/src/assets/images/product_navy_blazer_1791745358334.jpg',
+    image: '/images/product_navy_blazer_1791745358334.jpg',
     featured: true,
     careInstructions: 'Dry clean recommended to maintain tailored structure and canvassing.'
   },
@@ -155,7 +155,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     deliveryDaysEstimate: '2-4 business days',
     description: 'Warm, lightweight anti-pill knit uniform sweater with ribbed neckband, cuffs, and waist hem. Designed to layer smoothly over formal school collared shirts without excessive bulk.',
     descriptionUrdu: 'گرم اور نرم دھاگے سے بُنا گیا وی-نیک اسکول سویٹر۔ بار بار دھلائی کے باوجود روؤں سے محفوظ۔',
-    image: '/src/assets/images/hero_pakistan_uniforms_1791745324118.jpg',
+    image: '/images/hero_pakistan_uniforms_1791745324118.jpg',
     featured: true,
     careInstructions: 'Machine wash cool on wool cycle or hand wash. Dry flat away from direct heat.'
   },
@@ -182,7 +182,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     deliveryDaysEstimate: '3-4 business days',
     description: 'High-performance school sports uniform set featuring a full-zip track jacket with ribbed stand collar and zip pockets, matched with ergonomic athletic track pants with an elasticated drawcord waist.',
     descriptionUrdu: 'کھیلوں اور پی ٹی کلاسز کے لیے لچکدار اور ہوادار مائیکرو پولی ٹریک سوٹ۔ ہاؤس کلرز کے مطابق دستیاب۔',
-    image: '/src/assets/images/craftsmanship_workshop_1791745387660.jpg',
+    image: '/images/craftsmanship_workshop_1791745387660.jpg',
     featured: false,
     careInstructions: 'Machine wash cold. Do not iron directly on athletic prints.'
   },
@@ -208,7 +208,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     deliveryDaysEstimate: '2-3 business days',
     description: 'Soft summer school uniform polo shirt tailored from 220 GSM double-pique combed cotton. Features a 3-button placket, reinforced collar stand that prevents edge rolling, and side vents for comfort.',
     descriptionUrdu: 'گرمیوں کے سیزن کے لیے خالص کاٹن کی نرم پولو شرٹ۔ پسینہ جذب کرنے کی بہترین صلاحیت۔',
-    image: '/src/assets/images/product_formal_shirt_1791745342211.jpg',
+    image: '/images/product_formal_shirt_1791745342211.jpg',
     featured: false,
     careInstructions: 'Machine wash normal. Warm iron on reverse.'
   },
@@ -234,7 +234,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     deliveryDaysEstimate: '2-3 business days',
     description: 'Essential school uniform accessory combo: heavy-density jacquard woven tie with tipped tail and slide keeper, paired with a military-grade canvas webbed belt with solid brass sliding buckle.',
     descriptionUrdu: 'مضبوط اسکول ٹائی اور براس بکل والی کینوس بیلٹ کا مکمل سیٹ۔',
-    image: '/src/assets/images/product_girls_pinafore_1791745370566.jpg',
+    image: '/images/product_girls_pinafore_1791745370566.jpg',
     featured: false,
     careInstructions: 'Spot clean tie. Wipe belt buckle with dry cloth.'
   }

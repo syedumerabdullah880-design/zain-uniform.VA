@@ -2,6 +2,7 @@ import React from 'react';
 import { CheckCircle2, Printer, MessageCircle, X, Truck } from 'lucide-react';
 import { Order } from '../types';
 import { useStore } from '../context/StoreContext';
+import { BrandLogo } from './BrandLogo';
 
 interface OrderReceiptModalProps {
   order: Order | null;
@@ -50,15 +51,18 @@ export const OrderReceiptModal: React.FC<OrderReceiptModalProps> = ({
         <div className="overflow-y-auto p-6 sm:p-8 space-y-6">
           {/* Brand & Invoice Header */}
           <div className="flex justify-between items-start border-b border-slate-200 pb-6">
-            <div>
-              <div className="text-xl font-bold tracking-tight text-[#0F1E36]">
-                {settings.businessName}
+            <div className="flex items-start gap-3">
+              <BrandLogo variant="mark" size="sm" className="mt-1" />
+              <div>
+                <div className="text-xl font-bold tracking-tight text-[#0F1E36]">
+                  {settings.businessName}
+                </div>
+                <p className="text-xs text-slate-500">{settings.tagline}</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">{settings.address}</p>
+                <p className="text-[11px] text-slate-400">
+                  Phone: {settings.phone} / {settings.phone2 || '03145357249'} · {settings.email}
+                </p>
               </div>
-              <p className="text-xs text-slate-500">{settings.tagline}</p>
-              <p className="text-[11px] text-slate-400 mt-1">{settings.address}</p>
-              <p className="text-[11px] text-slate-400">
-                Phone: {settings.phone} / {settings.phone2 || '03145357249'} · {settings.email}
-              </p>
             </div>
 
             <div className="text-right">

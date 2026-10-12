@@ -8,14 +8,13 @@ interface ShopCatalogProps {
   selectedCategory: UniformCategory | 'All';
   onCategoryChange: (cat: UniformCategory | 'All') => void;
   onViewProduct: (product: Product) => void;
-  onQuickAdd: (product: Product) => void;
+  onQuickAdd?: (product: Product) => void;
 }
 
 export const ShopCatalog: React.FC<ShopCatalogProps> = ({
   selectedCategory,
   onCategoryChange,
   onViewProduct,
-  onQuickAdd,
 }) => {
   const { products, language } = useStore();
 
@@ -198,7 +197,6 @@ export const ShopCatalog: React.FC<ShopCatalogProps> = ({
                 key={product.id}
                 product={product}
                 onViewDetails={onViewProduct}
-                onQuickAdd={onQuickAdd}
               />
             ))}
           </div>
